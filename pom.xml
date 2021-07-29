@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.ihs2code</groupId>
-  <artifactId>sc-hibernate-hb-01-map-collections-set</artifactId>
+  <artifactId>sc-hibernate-hb-map-collections</artifactId>
   <version>1.0</version>
   <packaging>jar</packaging>
 
-  <name>sc-hibernate-hb-01-map-collections-set</name>
+  <name>sc-hibernate-hb-map-collections</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
