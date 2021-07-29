@@ -1,6 +1,6 @@
 package com.ihs2code.hibernate;
 
-import java.util.Set;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -8,7 +8,7 @@ import org.hibernate.cfg.Configuration;
 
 import com.ihs2code.hibernate.entity.Student;
 
-public class CreateStudentImagesSet {
+public class CreateStudentImagesList {
 
 	public static void main(String[] args) {
 
@@ -23,8 +23,8 @@ public class CreateStudentImagesSet {
 		
 		try {
 			// create the object	
-			Student tempStudent  = new Student("Ihs", "Doe", "ihs@ihs2code.com");
-			Set<String> theImages = tempStudent.getImages();
+			Student tempStudent  = new Student("John", "Doe", "ihs@ihs2code.com");
+			List<String> theImages = tempStudent.getImages();
 			
 			theImages.add("photo1.jpg"); // duplicate, filtered at HashSet
 			theImages.add("photo2.jpg");
@@ -32,7 +32,7 @@ public class CreateStudentImagesSet {
 			theImages.add("photo4.jpg");
 			theImages.add("photo4.jpg");
 			theImages.add("photo5.jpg");
-			theImages.add("photo5.jpg");
+
 			
 			// start a transaction
 			session.beginTransaction();
