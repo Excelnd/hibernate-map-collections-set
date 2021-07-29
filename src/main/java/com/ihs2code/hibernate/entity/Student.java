@@ -1,7 +1,8 @@
 package com.ihs2code.hibernate.entity;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -10,7 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OrderColumn;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -32,9 +33,9 @@ public class Student {
 	
 	@ElementCollection
 	@CollectionTable(name="image")
-	@OrderColumn
-	@Column(name="file_name") // default to images ---
-	private List<String> images = new ArrayList<String>();
+	@MapKeyColumn(name="file_name")
+	@Column(name="image_name") // default to images ---
+	private Map<String, String> images = new HashMap<String, String>();
 		
 	public Student(String firstName, String lastName, String email) {
 		this.firstName = firstName;
@@ -72,13 +73,13 @@ public class Student {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
+	}	
 
-	public List<String> getImages() {
+	public Map<String, String> getImages() {
 		return images;
 	}
 
-	public void setImages(List<String> images) {
+	public void setImages(Map<String, String> images) {
 		this.images = images;
 	}
 
