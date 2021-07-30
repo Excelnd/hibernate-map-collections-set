@@ -34,6 +34,10 @@ public class Student {
 	@org.hibernate.annotations.OrderBy(clause = "file_name desc") // default asc
 	@Column(name="file_name") // default to images ---
 	private Set<String> images = new LinkedHashSet<String>();
+	
+	public Student() {
+		
+	}
 		
 	public Student(String firstName, String lastName, String email) {
 		this.firstName = firstName;
