@@ -1,12 +1,14 @@
 package com.ihs2code.hibernate;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.ihs2code.hibernate.entity.Student;
 
-public class GetStudentImages {
+public class CreateStudentAddress {
 
 	public static void main(String[] args) {
 
@@ -20,31 +22,36 @@ public class GetStudentImages {
 		Session session = factory.getCurrentSession();
 		
 		try {
+			// create the object	
+			Student tempStudent  = new Student("John", "Doe", "ihs@ihs2code.com");
+			List<String> theImages = tempStudent.getImages();
+			
+			theImages.add("photo1.jpg"); // duplicate, filtered at HashSet
+			theImages.add("photo2.jpg");
+			theImages.add("photo3.jpg");
+			theImages.add("photo4.jpg");
+			theImages.add("photo4.jpg");
+			theImages.add("photo5.jpg");
+
+			
 			// start a transaction
 			session.beginTransaction();
 			
-			//  get the student id
-			int theId = 1;
-			Student student = session.get(Student.class, theId);
-			
-			// print the student detail
-			System.out.println("Student details: " + student);
-			
-			// print the associated images
-			System.out.println("The associated images: " + student.getImages());			
+			// save the object
+			System.out.println("Saving the student and Images... ");
+			session.persist(tempStudent);
 			
 			// commit the transaction
 			session.getTransaction().commit();
-			
-			// done
 			System.out.println("Done!!!");
+						
 		}
 		finally {
-			// close the transaction
+			// clean up code
 			session.close();
 			factory.close();
-			
 		}
+
 	}
 
 }
