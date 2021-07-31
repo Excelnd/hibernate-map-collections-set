@@ -1,8 +1,8 @@
 package com.ihs2code.hibernate.entity;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Comparator;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -13,6 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.SortComparator;
+
 
 @Entity
 @Table(name="student")
@@ -33,10 +36,27 @@ public class Student {
 	
 	@ElementCollection
 	@CollectionTable(name="image")
-	@MapKeyColumn(name="file_name")
-	@Column(name="image_name") // default to images ---
-	private Map<String, String> images = new HashMap<String, String>();
+	@MapKeyColumn(name="file_name") // Maps Key
+	@Column(name="image_name") // Maps Value
+//	@OrderBy
+	@SortComparator(ReverseStringComparator.class)
+	private SortedMap<String, String> images = new TreeMap<String, String>();
+	
+	// Reverse String
+	public static class ReverseStringComparator implements Comparator<String> {
+
+		public int compare(String o1, String o2) {
+			
+			return o2.compareTo(o1);
+		}
 		
+	}
+
+	
+	public Student() {
+
+	}
+	
 	public Student(String firstName, String lastName, String email) {
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -75,11 +95,11 @@ public class Student {
 		this.email = email;
 	}	
 
-	public Map<String, String> getImages() {
+	public SortedMap<String, String> getImages() {
 		return images;
 	}
 
-	public void setImages(Map<String, String> images) {
+	public void setImages(SortedMap<String, String> images) {
 		this.images = images;
 	}
 

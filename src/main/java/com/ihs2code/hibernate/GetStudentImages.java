@@ -1,14 +1,12 @@
 package com.ihs2code.hibernate;
 
-import java.util.Map;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.ihs2code.hibernate.entity.Student;
 
-public class CreateStudentImagesMap {
+public class GetStudentImages {
 
 	public static void main(String[] args) {
 
@@ -22,34 +20,31 @@ public class CreateStudentImagesMap {
 		Session session = factory.getCurrentSession();
 		
 		try {
-			// create the object	
-			Student tempStudent  = new Student("John", "Doe", "ihs@ihs2code.com");
-			Map<String, String> theImages = tempStudent.getImages();
-			
-			theImages.put("photo1.jpg", "Photo 1");
-			theImages.put("photo2.jpg", "Photo 2");
-			theImages.put("photo3.jpg", "Photo 3");
-
-
-			
 			// start a transaction
 			session.beginTransaction();
 			
-			// save the object
-			System.out.println("Saving the student and Images... ");
-			session.persist(tempStudent);
+			//  get the student id
+			int theId = 1;
+			Student student = session.get(Student.class, theId);
+			
+			// print the student detail
+			System.out.println("Student details: " + student);
+			
+			// print the associated images
+			System.out.println("The associated images: " + student.getImages());			
 			
 			// commit the transaction
 			session.getTransaction().commit();
+			
+			// done
 			System.out.println("Done!!!");
-						
 		}
 		finally {
-			// clean up code
+			// close the transaction
 			session.close();
 			factory.close();
+			
 		}
-
 	}
 
 }
