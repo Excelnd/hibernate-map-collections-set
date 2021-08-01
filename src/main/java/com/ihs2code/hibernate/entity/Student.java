@@ -1,16 +1,13 @@
 package com.ihs2code.hibernate.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CollectionTable;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -30,11 +27,20 @@ public class Student {
 	@Column(name="email")	
 	private String email;
 	
-	@ElementCollection
-	@CollectionTable(name="image")
-	@OrderColumn
-	@Column(name="file_name") // default to images ---
-	private List<String> images = new ArrayList<String>();
+	@Embedded
+	private Address homeAddress;
+	
+	@AttributeOverrides({
+		@AttributeOverride(name="street",
+							column=@Column(name="BILLING_STREET")),
+		@AttributeOverride(name="city",
+							column=@Column(name="BILLING_CITY")),
+		@AttributeOverride(name="zipcode",
+							column=@Column(name="BILLING_ZIPCODE"))	
+		
+	})
+	private Address billingAddress;
+	
 		
 	public Student(String firstName, String lastName, String email) {
 		this.firstName = firstName;
@@ -73,13 +79,21 @@ public class Student {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public List<String> getImages() {
-		return images;
+	
+	public Address getHomeAddress() {
+		return homeAddress;
 	}
 
-	public void setImages(List<String> images) {
-		this.images = images;
+	public void setHomeAddress(Address homeAddress) {
+		this.homeAddress = homeAddress;
+	}
+
+	public Address getBillingAddress() {
+		return billingAddress;
+	}
+
+	public void setBillingAddress(Address billingAddress) {
+		this.billingAddress = billingAddress;
 	}
 
 	@Override

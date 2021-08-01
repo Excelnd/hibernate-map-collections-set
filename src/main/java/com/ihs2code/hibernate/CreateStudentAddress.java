@@ -1,11 +1,10 @@
 package com.ihs2code.hibernate;
 
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import com.ihs2code.hibernate.entity.Address;
 import com.ihs2code.hibernate.entity.Student;
 
 public class CreateStudentAddress {
@@ -24,22 +23,17 @@ public class CreateStudentAddress {
 		try {
 			// create the object	
 			Student tempStudent  = new Student("John", "Doe", "ihs@ihs2code.com");
-			List<String> theImages = tempStudent.getImages();
-			
-			theImages.add("photo1.jpg"); // duplicate, filtered at HashSet
-			theImages.add("photo2.jpg");
-			theImages.add("photo3.jpg");
-			theImages.add("photo4.jpg");
-			theImages.add("photo4.jpg");
-			theImages.add("photo5.jpg");
 
+			// create the address object
+			Address billingAddress = new Address("Some Billing street", "Some Billing City", "56321496");
 			
 			// start a transaction
 			session.beginTransaction();
 			
 			// save the object
 			System.out.println("Saving the student and Images... ");
-			session.persist(tempStudent);
+			tempStudent.setBillingAddress(billingAddress);
+			session.save(tempStudent);
 			
 			// commit the transaction
 			session.getTransaction().commit();
