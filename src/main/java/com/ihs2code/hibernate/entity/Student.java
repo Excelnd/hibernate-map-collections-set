@@ -1,10 +1,9 @@
 package com.ihs2code.hibernate.entity;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,26 +26,9 @@ public class Student {
 	@Column(name="email")	
 	private String email;
 	
-	@Embedded
-	private Address homeAddress;
-	
-	@AttributeOverrides({
-		@AttributeOverride(name="street",
-							column=@Column(name="BILLING_STREET")),
-		@AttributeOverride(name="city",
-							column=@Column(name="BILLING_CITY")),
-		@AttributeOverride(name="zipcode",
-							column=@Column(name="BILLING_ZIPCODE"))	
-		
-	})
-	private Address billingAddress;
-	
-		
-	public Student(String firstName, String lastName, String email) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-	}
+	@Enumerated(EnumType.STRING)
+	@Column(name="status")
+	private Status status;
 
 	public int getId() {
 		return id;
@@ -78,27 +60,6 @@ public class Student {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	
-	public Address getHomeAddress() {
-		return homeAddress;
-	}
-
-	public void setHomeAddress(Address homeAddress) {
-		this.homeAddress = homeAddress;
-	}
-
-	public Address getBillingAddress() {
-		return billingAddress;
-	}
-
-	public void setBillingAddress(Address billingAddress) {
-		this.billingAddress = billingAddress;
-	}
-
-	@Override
-	public String toString() {
-		return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
 	}
 	
 }

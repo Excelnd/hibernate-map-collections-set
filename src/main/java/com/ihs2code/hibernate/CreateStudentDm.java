@@ -7,7 +7,7 @@ import org.hibernate.cfg.Configuration;
 import com.ihs2code.hibernate.entity.Address;
 import com.ihs2code.hibernate.entity.Student;
 
-public class CreateStudentAddress {
+public class CreateStudentDm {
 
 	public static void main(String[] args) {
 
