@@ -30,6 +30,13 @@ public class Student {
 	@Column(name="status")
 	private Status status;
 
+	public Student(String firstName, String lastName, String email, Status status) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.status = status;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -60,6 +67,20 @@ public class Student {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", status=" + status + "]";
 	}
 	
 }

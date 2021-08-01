@@ -4,7 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import com.ihs2code.hibernate.entity.Address;
+import com.ihs2code.hibernate.entity.Status;
 import com.ihs2code.hibernate.entity.Student;
 
 public class CreateStudentDm {
@@ -22,18 +22,16 @@ public class CreateStudentDm {
 		
 		try {
 			// create the object	
-			Student tempStudent  = new Student("John", "Doe", "ihs@ihs2code.com");
-
-			// create the address object
-			Address billingAddress = new Address("Some Billing street", "Some Billing City", "56321496");
-			
+			Student tempStudent1  = new Student("John", "Doe", "john@ihs2code.com", Status.ACTIVE);
+			Student tempStudent2  = new Student("Ihs", "Public", "ihs@ihs2code.com", Status.INACTIVE);
+		
 			// start a transaction
 			session.beginTransaction();
 			
 			// save the object
-			System.out.println("Saving the student and Images... ");
-			tempStudent.setBillingAddress(billingAddress);
-			session.save(tempStudent);
+			System.out.println("Saving the student... ");
+			session.save(tempStudent1);
+			session.save(tempStudent2);
 			
 			// commit the transaction
 			session.getTransaction().commit();
